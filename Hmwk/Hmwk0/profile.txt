@@ -1,0 +1,17 @@
+﻿——Student Profile——
+
+
+Name: Jack (Pierce) Avner
+
+
+Major/minor: Computer Science/ Computer Engineering
+
+
+Programming experience: Ive had experience in Java, C++, Python, Node, and C. I took APCS and APCSP in 
+High school. Im looking forward to perfecting my skills and learining even more in college. Im really
+looking forwar to learning how to apply my skills in a practical way.
+
+
+What do you expect to learn in this course? Im hoping that this course will dive deeper into the things
+that I have learned in the past, and bring me to a more advanced level before I move on to higher level
+Computer Science.

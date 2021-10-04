@@ -1,0 +1,20 @@
+Algorithams: A set of instructions
+- recippe for cooking:
+    - inputs: ingredients
+    - Sequential Steps
+    - Outputs: serving size and style
+    - Computer is the chef: Be descriptive to the chef (Douesnt understad "A bunch of flour")
+
+- Abstraction: Reusing code to simplify it 
+
+Software development Process:
+    1- understand the problem
+    2- develop and describe an algoritham 
+    3- test the algoritham with simple inputs
+    4- Translate algoritham into C++
+    5- Compile and test the program
+
+Variables: Values or quanities that change over time (Numbers, text, etc.)
+
+Pseudo Code: A notation resembling a simplified programming language for describing algorithams
+    (Is language universal, can be made in any language)
