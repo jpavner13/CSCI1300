@@ -5,6 +5,7 @@
         "iostream": "cpp",
         "cstdlib": "cpp",
         "ios": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "iomanip": "cpp"
     }
 }
