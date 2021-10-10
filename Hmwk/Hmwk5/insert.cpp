@@ -1,4 +1,10 @@
+// CS1300 Spring 2021
+// Author: Jack (Pierce) Avner
+// Recitation: 117 – Naga Sai Meenakshi Sistla
+// Homework 5 - Problem #3
+
 #include <iostream>
+#include <array>
 using namespace std;
 
 bool isVowel(char c){
@@ -11,28 +17,31 @@ bool isVowel(char c){
 
 int insert(char str[], int numChar, int length, int vowels){
     if((numChar + vowels) > length){
-        string s;
+        char s[numChar];
         for(int i = 0; i < numChar; i++){
-            s += str[i];
+            s[i] = str[i];
         }
-        cout << s << endl;
+        for(int i = 0; i < length; i++){
+            str[i] = s[i];
+        }
         return numChar;
     } else {
-        string newString[length];
+        char str2[numChar + vowels];
+        int count = 0;
         for(int i = 0; i < numChar; i++){
             if(isVowel(str[i])){
-                newString[i] = str[i];
-                newString[i + 1] = (int(str[i]) - 32);
-                i++;
-                numChar++;
+                str2[count] = str[i];
+                str2[count + 1] = int(str[i]) - 32;
+                count += 2;
             } else {
-                newString[i] = str[i];
+                str2[count] = str[i];
+                count++;
             }
         }
         for(int i = 0; i < length; i++){
-            cout << newString[i];
+            str[i] = str2[i];
         }
-        cout << endl;
+        //int len = sizeof(str2) / sizeof(str2[0]);
         return numChar + vowels;
     }
 }
