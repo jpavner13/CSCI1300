@@ -10,7 +10,7 @@
     compare the first char to see if the suit is the same
     if it is, increase counter and test to see if the rank is the same
     if the rank is also the same, increase bonus by 1
-    calculate score using counters and length of arrays
+    calculate score g using counters and length of arrays
     return score
 */
 
