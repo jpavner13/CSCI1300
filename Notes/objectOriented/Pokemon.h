@@ -2,6 +2,8 @@
 #define POKEMON_H
 
 #include <string>
+#include <iostream>
+#include <cmath>
 using namespace std;
 
 class Pokemon{

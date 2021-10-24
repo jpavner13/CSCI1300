@@ -1,3 +1,8 @@
+// CS1300 Spring 2021
+// Author: Jack (Pierce) Avner
+// Recitation: 117 – Naga Sai Meenakshi Sistla
+// Homework 6 - Problem #1
+
 #include <iostream>
 #include <fstream>
 using namespace std;
