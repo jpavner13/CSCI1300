@@ -1,10 +1,6 @@
-// CS1300 Spring 2021
-// Author: Jack (Pierce) Avner
-// Recitation: 117 – Naga Sai Meenakshi Sistla
-// Homework 7 - Problem #3
-
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
 class Song{
@@ -21,6 +17,8 @@ class Song{
 
     int readSongs(string fileName, Song arr[], int numSongsStored, int arrSize);
     void printAllSongs(Song arr[], int numStored);
+    int countGenre(string genre, Song arr[], int numStored);
+    int frequentGenreSongs(Song arr[], int numSongStored);
 
     private:
     string title;
