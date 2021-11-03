@@ -1,6 +1,9 @@
 #include <iostream>
-#include "Song.h"
 #include "Listener.h"
+#include "Song.h"
+#include "readListenerInfoDriver.cpp"
+#include "addListener.cpp"
+
 #include <fstream>
 using namespace std;
 
@@ -28,109 +31,128 @@ int main(){
         printOptions();
         cin >> input;
         switch(input){
-            case 1:
-                string fileName;
-                cout << "Enter a song file name" << endl;
-                cin >> fileName;
-                int totalSongs = Song::readSongs(fileName, songs, numSongs, 50);
-                if(totalSongs == -1){
-                    cout << "No songs saved to the database." << endl;
-                } else if (totalSongs == -2){
-                    cout << "Database is already full. No songs were added." << endl;
-                } else {
-                    cout << "Total songs in the database: " << totalSongs << endl;
-                    numSongs += totalSongs;
-                }
-                if(numSongs >= 50){
-                    cout << "Database is full. Some songs may have not been added." << endl;
+            case 1: {
+                    string fileName;
+                    cout << "Enter a song file name:" << endl;
+                    cin >> fileName;
+                    int totalSongs = readSongs(fileName, songs, numSongs, 50);
+                    if(totalSongs == -1){
+                        cout << "No songs saved to the database." << endl;
+                    } else if (totalSongs == -2){
+                        cout << "Database is already full. No songs were added." << endl;
+                    } else {
+                        cout << "Total songs in the database: " << totalSongs << endl;
+                        numSongs = totalSongs;
+                        if(numSongs >= 50){
+                            cout << "Database is full. Some songs may have not been added." << endl;
+                        }   
+                    }
                 }
                 break;
             case 2:
-                Song::printAllSongs(songs, numSongs);
+                printAllSongs(songs, numSongs);
                 break;
-            case 3:
-                string genre;
-                cout << "Enter a genre" << endl;
-                cin >> genre;
-                int totGenre = Song::countGenre(genre, songs, numSongs);
-                cout << "Total " << genre << " songs in the database: " << totGenre << endl;
-                break;
-            case 4:
-                int commonGenre = Song::frequentGenreSongs(songs, numSongs);
-                cout << "Number of songs in most common Genre: " << commonGenre << endl;
-                break;
-            case 5:
-                string currentName;
-                cout << "Enter a listener name:" << endl;
-                cin >> currentName;
-                int add = Listener::addListener(currentName, listeners, 50, numListeners, 100);
-                if(add == -1){
-                    cout << "Database is already full. Listener cannot be added." << endl;
-                } else if(add == -2){
-                    cout << "Listener already exists." << endl;
-                } else if(add == -3){
-                    cout << "The listenerName is empty." << endl;
-                } else {
-                    cout << "Welcome, " + currentName << "!" << endl
-                    listeners[numListeners] = Listener newListener();
-                    listeners[numListeners].setListenerName(currentName);
-                    numListeners++;
+            case 3: {
+                    string genre;
+                    cout << "Genre:" << endl;
+                    cin >> genre;
+                    int totGenre = countGenre(genre, songs, numSongs);
+                    cout << "Total " << genre << " songs in the database: " << totGenre << endl;
+                    break;
                 }
-                break;
-            case 6:
-                string fileName;
-                cout << "Enter the listener info file name:" << endl;
-                cin >> fileName;
-                int readListener = Listener::readListenerInfo(fileName, listeners[], numListeners, 100, 51);
-                if(readListener == -1){
-                    cout << "Nothing saved to the database." << endl;
-                } else if (readListener == -2){
-                    cout << "Database is already full. Nothing was added." << endl;
-                } else {
-                    cout << "Total listeners in the database: " << readListener << endl;
+            case 4: {
+                    int commonGenre = frequentGenreSongs(songs, numSongs);
+                    cout << "Number of songs in most common Genre: " << commonGenre << endl;
+                    break;
+                }
+            case 5: {
+                    string currentName = "";
+                    cout << "Enter a listener name:" << endl;
+                    cin.ignore(1000, '\n');
+                    getline(cin, currentName);
+                    int add = addListener(currentName, listeners, 50, numListeners, 100);
+                    if(add == -1){
+                        cout << "Database is already full. Listener cannot be added." << endl;
+                    } else if(add == -2){
+                        cout << "Listener already exists." << endl;
+                    } else if(add == -3){
+                        cout << "The listenerName is empty." << endl;
+                    } else {
+                        cout << "Welcome, " + currentName << "!" << endl;
+                        Listener newListener = Listener();
+                        listeners[numListeners] = newListener;
+                        listeners[numListeners].setListenerName(currentName);
+                        numListeners++;
+                    }
+                    break;
+                }
+            case 6: {
+                    string fileName;
+                    cout << "Enter the listener info file name:" << endl;
+                    cin >> fileName;
+                    int readListener = readListenerInfo(fileName, listeners, numListeners, 100, 51);
+                    numListeners += readListener;
                     if(readListener >= 100){
+                        readListener = 100;
+                        cout << "Total listeners in the database: " << readListener << endl;
                         cout << "Database is full. Some listeners may have not been added." << endl;
+                        break;
                     }
-                }
-            case 7:
-                string name;
-                string song;
-                cout << "Enter a listener name:" << endl;
-                cin >> name;
-                cout << "Enter a song name:" << endl;
-                cin >> song;
-                int songIndex;
-                int nameIndex;
-                for(int i = 0; i < numListeners; i++){
-                    if(listeners[i].getListenerName() == name){
-                        nameIndex = i;
+                    if(readListener == -1){
+                        cout << "Nothing saved to the database." << endl;
+                    } else if (readListener == -2){
+                        cout << "Database is already full. Nothing was added." << endl;
+                    } else {
+                        cout << "Total listeners in the database: " << readListener << endl;
                     }
+                    break;
                 }
-                for(int i = 0; i < numSongs; i++){
-                    if(songs[i].getTitle() == song){
-                        songIndex = i;
+            case 7: {
+                    string name;
+                    string song;
+                    cout << "Enter a listener name:" << endl;
+                    cin >> name;
+                    cout << "Enter a song name:" << endl;
+                    getline(cin >> ws, song);
+                    int songIndex = -1;
+                    int nameIndex = -1;
+                    for(int i = 0; i < numListeners; i++){
+                        if(listeners[i].getListenerName() == name){
+                            nameIndex = i;
+                        }
                     }
+                    for(int i = 0; i < numSongs; i++){
+                        if(songs[i].getTitle() == song){
+                            songIndex = i;
+                        }
+                    }
+
+                    if(songIndex == -1 && nameIndex == -1){
+                        cout << name << " and " << song << " do not exist." << endl;
+                    } else if(songIndex == -1){
+                        cout << song << " does not exist." << endl;
+                    } else if (nameIndex == -1){
+                        cout << name << " does not exist." << endl;
+                    } else {
+                        int playCount = listeners[nameIndex].getPlayCountAt(songIndex);
+                        cout << name << " has listened to " << song << " " << playCount << " times." << endl;
+                    }
+                    break;
                 }
-                int playCount = listeners[nameIndex].getPlayCountAt(songIndex);
-                if(playCount == -1){
-                    cout << song << " does not exist." << endl;
-                } else if(playCount == -2){
-                    cout << name << " does not exist." << endl;
-                } else if(playCount == -3){
-                    cout << name << " and " << song << " do not exist." << endl;
-                } else {
-                    cout << name << " has listened to " << song << playCount << " times." << endl;
+            case 8: {
+                    string name;
+                    cout << "Enter a listener name:" << endl;
+                    cin >> name;
+                    int stats = getListenerStats(name, listeners, numListeners, numSongs);
+                    break;
                 }
-                break;
-            case 8:
-                string name;
-                cout << "Enter a listener name:" << endl;
-                cint >> name;
-                int stats = getListenerStats(name, listeners, numListeners, numSongs);
-                break;
             case 9:
                 cout << "Good bye!" << endl;
+                break;
+            default:
+                cout << "Invalid input." << endl;
         }
 
     }
+    return 0;
 }
