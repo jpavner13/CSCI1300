@@ -1,38 +1,48 @@
+// CS1300 Spring 2021
+// Author: Jack (Pierce) Avner
+// Recitation: 117 – Naga Sai Meenakshi Sistla
+// Homework 8 - Problem #4
+
 #include <iostream>
 #include <vector>
 using namespace std;
 
-vector<int> getNextNum(vector<int> nums, vector<int> vec, int currentSum, int currentCount, int endNum){
-    vector<int> returnVec = vec;
-    if(currentCount < nums.size()){
-        int returnInt = currentSum;
-        int count = currentCount;
-        returnInt += nums[count];
-        count++;
-        if(currentSum > endNum){
-            return returnVec;
-        } else {
-            getNextNum(nums, returnVec, returnInt, count, endNum);
-        }
-    } else {
-        returnVec.push_back(currentSum);
-        getNextNum(returnVec, returnVec, 0, 0, endNum);
+int getNextNumber(vector<int> numVect){
+    if (numVect.size() <= 1){
+        return numVect[0];
+    }
+    else {
+        vector<int> slice(numVect.begin() + 1, numVect.begin() + numVect.size());
+        return numVect[0] + getNextNumber(slice);
     }
 }
 
-void printElements(vector<int> nums, int count){
-    cout << nums[count] << " ";
-    int i = count;
-    i++;
-    printElements(nums, i);
+vector<int> vec{1};
+
+void printVector(int count){
+    if(vec.size() > count){
+        cout << vec[count] << " ";
+        count++;
+        printVector(count);
+    }
 }
 
-void fillCumulativeSumRecursive(int endNum){
-    vector<int> vec{1};
-    vector<int> printNums = getNextNum(vec, vec, 0, 0, endNum);
-    printElements(printNums, 0);
+void fillCumulativeSumRecursive(int lastNum){
+    if(lastNum > 0){
+        if(lastNum > getNextNumber(vec)){
+            vec.push_back(getNextNumber(vec));
+            fillCumulativeSumRecursive(lastNum);
+        } else {
+            int count = 0;
+            printVector(count);
+            cout << endl;
+        }
+    } else {
+        cout << "Invalid input." << endl;
+    }
 }
 
 int main(){
     fillCumulativeSumRecursive(20);
+    return 0;
 }
