@@ -11,6 +11,10 @@ class Menu{
         string getGameName();
         int setGameName(string newGameName);
 
+        int getChoice();
+
+        void printMenu();
+
     private:
         static const int numOptions = 4;
         string options[numOptions];

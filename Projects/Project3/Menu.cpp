@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Menu.h"
+#include <unistd.h>
 using namespace std;
 
 Menu::Menu(){
@@ -20,4 +21,19 @@ string Menu::getGameName(){
 int Menu::setGameName(string newGameName){
     gameName = newGameName;
     return 0;
+}
+
+int Menu::getChoice(){
+    int choice;
+    cout << "Enter an option from above:" << endl;
+    cin >> choice;
+    return choice;
+}
+
+void Menu::printMenu(){
+    system("clear");
+    cout << gameName << endl;
+    for(int i = 0; i < numOptions; i++){
+        cout << (i + 1) << ": " << options[i] << endl;;
+    }
 }

@@ -11,31 +11,43 @@
     10. Pay players earnings
     11. Repeat until players quit
 */
-#include "Player.h"
+//#include "Player.h"
 //#include "Fighter.h"
-#include "Ground.h"
+//#include "Ground.h"
 #include "Menu.h"
+#include <ifstream>
 
 int main(){
-    Player player1 = Player("Bill", "Password");
-    Fighter fighter1 = Fighter("Sal", 500, 3);
-    Ground ground1 = Ground("Earth");
     Menu menu1 = Menu();
-
-    cout << player1.getPlayerName() << endl;
-    cout << player1.getPlayerPassword() << endl;
-    cout << player1.getPlayerAccountBalance() << endl;
-
-    cout << fighter1.getFighterName() << endl;
-    cout << fighter1.getFightsWon() << endl;
-    cout << fighter1.getHp() << endl;
-    cout << fighter1.getLevel() << endl;
-    cout << fighter1.getPower() << endl;
-
-    cout << ground1.getGroundType() << endl;
-    ground1.setGroundIntensity(5);
-    cout << ground1.getGroundIntensity() << endl;
-
     menu1.setGameName("Boxing");
-    cout << menu1.getGameName() << endl;
+    menu1.setMenuOptionNameAt(0, "Play Game");
+    menu1.setMenuOptionNameAt(1, "Shop");
+    menu1.setMenuOptionNameAt(2, "Create New Player");
+
+    bool playingGame = true;
+
+    while(playingGame){
+        menu1.printMenu();
+        int choice = menu1.getChoice();
+        cout << choice << endl;
+        if(choice == 1){
+
+        } else if(choice == 2){
+
+        } else if(choice == 3){
+            ifstream file;
+            string str;
+            string name;
+            string password;
+            cout << "Enter new account name" << endl;
+            cin >> name;
+            while(getline(file, str)){
+                
+            }
+            cout << "Enter new accoutn password" << endl;
+            cin >> password;
+            cout << "Welcome " << name << "!" << endl;
+
+        }
+    }
 }
