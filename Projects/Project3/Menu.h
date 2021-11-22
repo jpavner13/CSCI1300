@@ -15,6 +15,13 @@ class Menu{
 
         void printMenu();
 
+        void askName();
+        void askPassword();
+        void userExists();
+        void welcome();
+
+        void printFighterShop();
+
     private:
         static const int numOptions = 4;
         string options[numOptions];

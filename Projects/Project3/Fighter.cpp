@@ -6,10 +6,14 @@ Fighter::Fighter(){
     fighterName = "";
 }
 
-Fighter:: Fighter(string newFighterName, int startHp, int startPower){
+Fighter:: Fighter(string newFighterName, int startHp, int startPower,  int startLevel, int startFightsWon, int startTotalFights, int startPrice){
     fighterName = newFighterName;
     hp = startHp;
     power = startPower;
+    level = startLevel;
+    fightsWon = startFightsWon;
+    totalFights = startTotalFights;
+    price = startPrice;
 }
 
 string Fighter::getFighterName(){

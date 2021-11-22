@@ -1,0 +1,14 @@
+
+Fighter Number | Fighter Name | Fighter HP | Fighter Power | Fighter Price
+        1        Tyson          100          30              $5,000
+        2        Ali            120          20              $5,000
+        3        Louis          150          10              $5,000
+        4        Robinson       120          30              $7,000
+        5        Dempsey        140          25              $7,500
+        6        Rocky          150          30              $8,000
+        7        Mayweather     170          35              $9,000
+        8        Chavez         160          40              $9,000
+        9        Holyfield      180          40              $11,000
+        10       Holmes         220          45              $20,500
+
+Enter the number of the fighter you wish to purchace, or 'q' to quit.

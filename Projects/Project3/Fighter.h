@@ -1,10 +1,13 @@
+#ifndef FIGHTER_H
+#define FIGHTER_H
+
 #include <iostream>
 using namespace std;
 
 class Fighter{
     public:
         Fighter();
-        Fighter(string newFighterName, int startHp, int startPower);
+        Fighter(string newFighterName, int startHp, int startPower, int startLevel, int startFightsWon, int startTotalFights, int startPrice);
 
         string getFighterName();
         int setFighterName(string newName);
@@ -36,3 +39,4 @@ class Fighter{
         int totalFights;
         int price;
 };
+#endif

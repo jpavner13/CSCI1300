@@ -5,7 +5,7 @@ using namespace std;
 class Player{
     public:
         Player();
-        Player(string name, string password);
+        Player(string name, string password, int balance, int fighters);
 
         string getPlayerName();
         int setPlayerName(string newName);

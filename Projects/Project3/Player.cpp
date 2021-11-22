@@ -5,9 +5,11 @@ using namespace std;
 Player::Player(){
 
 }
-Player::Player(string name, string password){
+Player::Player(string name, string password, int balance, int fighters){
     playerName = name;
     playerPassword = password;
+    playerAccountBalance = balance;
+    numOfFighters = fighters;
 }
 string Player::getPlayerName(){
     return playerName;
