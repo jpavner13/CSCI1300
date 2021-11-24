@@ -17,6 +17,7 @@
 #include "Menu.h"
 #include <fstream>
 #include <unistd.h>
+#include <string>
 using namespace std;
 
 int split(string str, char sep, string arr[], int arrSize){
@@ -52,6 +53,9 @@ void runShop(Menu menu){
     cin >> option;
     ifstream file;
     file.open("Players.txt");
+    string playerLine;
+    string playerArr[74];
+    Fighter playerFighters[10];
     if(option == 1){
         system("clear");
         cout << "Enter username:" << endl;
@@ -59,22 +63,22 @@ void runShop(Menu menu){
         string str;
         cin >> name;
         bool nameExists = false;
-        Fighter playerFighters[10];
+        string finalStr = "";
         while(getline(file, str)){
-            string arr[74];
-            split(str, ',', arr, 74);
-            if(name == arr[0]){
+            split(str, ',', playerArr, 74);
+            if(name == playerArr[0]){
                 nameExists = true;
+                playerLine = str;
                 string password;
                 cout << "Enter password:" << endl;
                 cin >> password;
-                if(password == arr[1]){
+                if(password == playerArr[1]){
                     cout << "Logged in" << endl;
-                    Player player(arr[0], arr[1], stoi(arr[2]), stoi(arr[3]));
+                    Player player(playerArr[0], playerArr[1], stoi(playerArr[2]), stoi(playerArr[3]));
                     cout << player.getPlayerName() << "'s balance: $" << player.getPlayerAccountBalance() << endl;
                     int counter = 0;
                     for(int i = 4; i < ((player.getNumberOfFighters() * 7) + 4); i += 7){
-                        Fighter currentFighter(arr[i], stoi(arr[i + 1]), stoi(arr[i + 2]), stoi(arr[i + 3]), stoi(arr[i + 4]), stoi(arr[i + 5]), stoi(arr[i + 6]));
+                        Fighter currentFighter(playerArr[i], stoi(playerArr[i + 1]), stoi(playerArr[i + 2]), stoi(playerArr[i + 3]), stoi(playerArr[i + 4]), stoi(playerArr[i + 5]), stoi(playerArr[i + 6]));
                         playerFighters[counter] = currentFighter;
                         counter++;
                     }
@@ -88,7 +92,7 @@ void runShop(Menu menu){
                         fighterFile.open("Fighters.txt");
                         Fighter fighters[10];
                         string str;
-                        string arr[10];
+                        string arr[7];
                         int counter = 0;
                         while(getline(fighterFile, str)){
                             split(str, ',', arr, 7);
@@ -105,11 +109,33 @@ void runShop(Menu menu){
                             if(verify == "y"){
                                 if(player.getPlayerAccountBalance() >= fighters[fighterChoice - 1].getPrice()){
                                     cout << "Purchasing fighter..." << endl;
+                                    player.incrementNumOfFighters();
+                                    usleep(1000000);
                                     player.setPlayerAccountBalance(player.getPlayerAccountBalance() - fighters[fighterChoice - 1].getPrice());
                                     playerFighters[player.getNumberOfFighters()] = fighters[fighterChoice - 1];
-                                    player.incrementNumOfFighters();
-                                    cout << playerFighters[player.getNumberOfFighters() - 1].getFighterName() << endl;
-                                    
+                                    cout << playerFighters[player.getNumberOfFighters()].getFighterName() << endl;
+                                    int i = (((player.getNumberOfFighters() - 1) * 7) + 4);
+                                    playerArr[2] = to_string(stoi(playerArr[2]) - fighters[fighterChoice - 1].getPrice());
+                                    playerArr[3] = to_string(stoi(playerArr[3]) + 1);
+                                    playerArr[i] = fighters[fighterChoice - 1].getFighterName();
+                                    playerArr[i+ 1] = to_string(fighters[fighterChoice - 1].getHp());
+                                    playerArr[i+ 2] = to_string(fighters[fighterChoice - 1].getPower());
+                                    playerArr[i+ 3] = to_string(fighters[fighterChoice - 1].getLevel());
+                                    playerArr[i+ 6] = to_string(fighters[fighterChoice - 1].getPrice());
+                                    string addStr = "";
+                                    for(int i = 0; i < 73; i++){
+                                        if(i == 72){
+                                            addStr += playerArr[i];
+                                        } else {
+                                            addStr += playerArr[i];
+                                            addStr += ",";
+                                        }
+                                    }
+                                    addStr += "\n";
+                                    finalStr += addStr;
+                                    usleep(5000000);
+                                    cout << "Fighter Purchaced!" << endl;
+                                    usleep(5000000);
                                 } else {
                                     cout << "Insufficient funds." << endl;
                                     usleep(5000000);
@@ -124,24 +150,19 @@ void runShop(Menu menu){
                             cout << "Invalad input" << endl;
                             runShop(menu);
                         }
-
-                        usleep(5000000);
                     } else {
                         cout << "Invalid input." << endl;
                         usleep(5000000);
                         runShop(menu);
                     }
-
-
-
-
-
-
                 } else {
                     cout << "Incorrect password. Try logging in again." << endl;
                     usleep(5000000);
                     runShop(menu);
                 }
+            } else {
+                finalStr += str;
+                finalStr += "\n";
             }
         }
         if(!nameExists){
@@ -149,8 +170,165 @@ void runShop(Menu menu){
             usleep(5000000);
             runShop(menu);
         }
+        cout << finalStr;
+        ofstream outFile;
+        outFile.open("Players.txt");
+        outFile << finalStr;
+        outFile.close();
     } else if(option == 2){
         system("clear");
+        cout << "Enter username:" << endl;
+        string enteredName;
+        cin >> enteredName;
+        ifstream file;
+        file.open("Players.txt");
+        if(file.is_open()){
+        } else {
+            cout << "File could not open" << endl;
+        }
+        string str;
+        bool nameExists = false;
+        string newFileString;
+        while(getline(file, str)){
+            //cout << "Trying to split" << endl;
+            split(str, ',', playerArr, 74);
+            //cout << "Split" << endl;
+            if(playerArr[0] == enteredName){
+                nameExists = true;
+                cout << "Enter password:" << endl;
+                string password;
+                cin >> password;
+                if(password == playerArr[1]){
+                    cout << "Logged in" << endl;
+                    Player player(playerArr[0], playerArr[1], stoi(playerArr[2]), stoi(playerArr[3]));
+                    cout << player.getPlayerName() << "'s balance: $" << player.getPlayerAccountBalance() << endl;
+                    int counter = 0;
+                    for(int i = 4; i < ((player.getNumberOfFighters() * 7) + 4); i += 7){
+                        Fighter currentFighter(playerArr[i], stoi(playerArr[i + 1]), stoi(playerArr[i + 2]), stoi(playerArr[i + 3]), stoi(playerArr[i + 4]), stoi(playerArr[i + 5]), stoi(playerArr[i + 6]));
+                        playerFighters[counter] = currentFighter;
+                        counter++;
+                    }
+                    if(player.getNumberOfFighters() <= 0){
+                        cout << "No fighters to sell." << endl;
+                        newFileString += str;
+                        newFileString += "\n";
+                    } else {
+                        cout << "Which fighter would you like to sell?" << endl;
+                        int sellOption;
+                        for(int i = 0; i < counter; i++){
+                            cout << (i + 1) << ": " << playerFighters[i].getFighterName() << "\t\t\t$" << playerFighters[i].getPrice() << endl;
+                        }
+                        cin >> sellOption;
+                        string confirm;
+                        cout << "You wish to sell " << playerFighters[sellOption - 1].getFighterName() << ". Is this correct? (y/n)" << endl;
+                        cin >> confirm;
+                        if(confirm == "y"){
+                            cout << "Selling " << playerFighters[sellOption - 1].getFighterName() << "." << endl;
+                            bool foundInArr = false;
+                            int index;
+                            for(int i = 0; i < 10; i++){
+                                if(i == (sellOption -1)){
+                                    index = i;
+                                    foundInArr = true;
+                                    player.decrementNumberOfFighters();
+                                    //cout << (playerFighters[sellOption - 1].getPrice()) << endl;
+                                    player.setPlayerAccountBalance(player.getPlayerAccountBalance() + playerFighters[sellOption - 1].getPrice());
+                                    playerFighters[i] = playerFighters[i + 1];
+                                } else {
+                                    if(foundInArr){
+                                        playerFighters[i] = playerFighters[i + 1];
+                                    }
+                                }
+                            }
+                            //player.setPlayerAccountBalance(player.getPlayerAccountBalance() - playerFighters[sellOption - 2].getPrice());
+                            //player.incrementNumOfFighters();
+                            for(int i = 0; i < 4; i++){
+                                if(i == 2){
+                                    newFileString += to_string(player.getPlayerAccountBalance());
+                                    //cout << player.getPlayerAccountBalance() << endl;
+                                    newFileString += ",";
+                                } else if (i == 3){
+                                    newFileString += to_string(player.getNumberOfFighters());
+                                    newFileString += ","; 
+                                } else {
+                                    newFileString += playerArr[i];
+                                    newFileString += ",";
+                                }
+                            }
+
+                            string fighterString;
+                            string fighterStringArr[70];
+                            for(int i = 0; i < player.getNumberOfFighters(); i++){
+                                fighterString += playerFighters[i].getFighterName();
+                                fighterStringArr[i * 7] = playerFighters[i].getFighterName();
+                                fighterString += ",";
+                                fighterString += to_string(playerFighters[i].getHp());
+                                fighterStringArr[(i * 7) + 1] = to_string(playerFighters[i].getHp());
+                                fighterString += ",";
+                                fighterString += to_string(playerFighters[i].getPower());
+                                fighterStringArr[(i * 7) + 2] = to_string(playerFighters[i].getPower());
+                                fighterString += ",";
+                                fighterString += to_string(playerFighters[i].getLevel());
+                                fighterStringArr[(i * 7) + 3] = to_string(playerFighters[i].getLevel());
+                                fighterString += ",";
+                                fighterString += to_string(playerFighters[i].getFightsWon());
+                                fighterStringArr[(i * 7) + 4] = to_string(playerFighters[i].getFightsWon());
+                                fighterString += ",";
+                                fighterString += to_string(playerFighters[i].getTotalFights());
+                                fighterStringArr[(i * 7) + 5] = to_string(playerFighters[i].getTotalFights());
+                                fighterString += ",";
+                                fighterString += to_string(playerFighters[i].getPrice());
+                                fighterStringArr[(i * 7) + 6] = to_string(playerFighters[i].getPrice());
+                                fighterString += ",";
+                            }
+                            newFileString += fighterString;
+                            for(int i = player.getNumberOfFighters() * 7; i < 70; i++){
+                                if(i == 69){
+                                    newFileString += "0";
+                                } else{
+                                    newFileString += "0,";
+                                }
+                            }
+                            newFileString += "\n";
+                        } else {
+                            cout << "Canceling" << endl;
+                            usleep(5000000);
+                            runShop(menu);
+                        }
+                    }
+                    usleep(5000000);
+
+
+                } else {
+                    cout << "Password Incorrect" << endl;
+                    usleep(5000000);
+                    runShop(menu);
+                }
+            } else {
+                for(int i = 0; i < 74; i++){
+                    if(i == 73){
+                        newFileString += playerArr[i];
+                    } else {
+                        newFileString += playerArr[i];
+                        newFileString += ",";
+                    }
+                }
+                newFileString += "\n";
+            }
+            ofstream editFile;
+            editFile.open("Players.txt");
+            editFile << newFileString;
+            editFile.close();
+        }
+        if(!nameExists){
+            cout << "Username does not exist" << endl;
+            usleep(5000000);
+            runShop(menu);
+        }
+
+
+
+
 
     } else if(option == 3){
         file.close();
@@ -176,30 +354,35 @@ void createAccount(Menu menu){
     string fullFile = "";
     while(getline(file, str)){
         split(str, ',', arr, 74);
+        //cout << "Split successful" << endl;
         if(arr[0] == name){
             menu.userExists();
             usleep(5000000);
             createAccount(menu);
         }
+        //cout << "Broke in loop" << endl;
         fullFile = fullFile + (str + "\n");
     }
     menu.askPassword();
     cin >> password;
-    char input;
-    while(input != 'y'){
-        system("clear");
-        menu.welcome();
-        cin >> input;
+    system("clear");
+    menu.welcome();
+    string input;
+    cin >> input;
+
+    if(input == "y"){
+        fullFile +=  (name + "," + password + "," + "10000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
+        ofstream printFile;
+        printFile.open("Players.txt");
+        printFile << fullFile << endl;
+
+        input = "n";
+        file.close();
+        printFile.close();
+    } else {
+        cout << "Account not confirmed, try again." << endl;
+        createAccount(menu);
     }
-
-    fullFile +=  (name + "," + password + "," + "10000" + "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
-    ofstream printFile;
-    printFile.open("Players.txt");
-    printFile << fullFile << endl;
-
-    input = ' ';
-    file.close();
-    printFile.close();
 }
 
 int main(){

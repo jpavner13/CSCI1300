@@ -21,6 +21,7 @@ class Player{
 
         int getNumberOfFighters();
         int incrementNumOfFighters();
+        int decrementNumberOfFighters();
 
     private:
         string playerName;

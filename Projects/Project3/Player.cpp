@@ -46,3 +46,7 @@ int Player::incrementNumOfFighters(){
     numOfFighters++;
     return 0;
 }
+int Player::decrementNumberOfFighters(){
+    numOfFighters--;
+    return 0;
+}
