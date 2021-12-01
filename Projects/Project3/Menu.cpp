@@ -96,3 +96,13 @@ void Menu::printFighterShop(){
     }
     file.close();
 }
+
+void Menu::printShopTitle(){
+    ifstream file;
+    file.open("Images/ShopTitle.txt");
+    string str;
+    while(getline(file, str)){
+        cout << str << endl;
+    }
+    file.close(); 
+}

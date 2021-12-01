@@ -1,3 +1,6 @@
+#ifndef PLAYER_H
+#define PLAYER_H
+
 #include <iostream>
 #include "Fighter.h"
 using namespace std;
@@ -17,11 +20,14 @@ class Player{
         int setPlayerAccountBalance(int newBalance);
 
         Fighter getPlayerFighterAt(int index);
+        int addPLayerFighterAt(Fighter, int);
         int addPLayerFighter(Fighter newFighter);
 
         int getNumberOfFighters();
         int incrementNumOfFighters();
+        int setNumberOfFighters(int);
         int decrementNumberOfFighters();
+
 
     private:
         string playerName;
@@ -30,3 +36,5 @@ class Player{
         Fighter fighters[10];
         int numOfFighters;
 };
+
+#endif

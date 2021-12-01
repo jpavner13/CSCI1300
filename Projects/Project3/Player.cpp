@@ -35,8 +35,13 @@ int Player::setPlayerAccountBalance(int newBalance){
 Fighter Player::getPlayerFighterAt(int index){
     return fighters[index];
 }
+int Player::addPLayerFighterAt(Fighter currentFighter, int counter){
+    fighters[counter] = currentFighter;
+    return 0;
+}
 int Player::addPLayerFighter(Fighter newFighter){
     fighters[numOfFighters] = newFighter;
+    numOfFighters++;
     return 0;
 }
 int Player::getNumberOfFighters(){
@@ -48,5 +53,9 @@ int Player::incrementNumOfFighters(){
 }
 int Player::decrementNumberOfFighters(){
     numOfFighters--;
+    return 0;
+}
+int Player::setNumberOfFighters(int newNum){
+    numOfFighters = newNum;
     return 0;
 }

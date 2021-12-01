@@ -35,12 +35,7 @@ int Fighter::getHp(){
 }
 
 int Fighter::setHp(int newHp){
-    if(newHp > 0){
-        hp = newHp;
-        return 0;
-    } else {
-        return -1;
-    }
+    hp = newHp;
     return 0;
 }
 

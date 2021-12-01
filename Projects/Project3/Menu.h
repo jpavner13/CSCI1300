@@ -21,7 +21,7 @@ class Menu{
         void welcome();
 
         void printFighterShop();
-
+        void printShopTitle();
     private:
         static const int numOptions = 4;
         string options[numOptions];
