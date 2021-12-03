@@ -2,9 +2,11 @@
 #include "Player.h"
 using namespace std;
 
-Player::Player(){
+/*
+    All functions are prestty dtraight forward getters and setters
+*/
 
-}
+Player::Player(){}
 Player::Player(string name, string password, int balance, int fighters){
     playerName = name;
     playerPassword = password;

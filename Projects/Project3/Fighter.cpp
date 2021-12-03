@@ -2,6 +2,10 @@
 #include "Fighter.h"
 using namespace std;
 
+/*
+    All fucntions are pretty straight forward getters and setters
+*/
+
 Fighter::Fighter(){
     fighterName = "";
 }

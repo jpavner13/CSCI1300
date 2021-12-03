@@ -1,6 +1,12 @@
+/*
+    This file contains my main function
+    as well as all of my stand alone functions
+    that are not part of a class
+*/
+
 #include "Player.h"
 #include "Fighter.h"
-#include "Ring.h"
+#include "Ring.h"           //My new iteration of the Map class (More applicable to my game)
 #include "Menu.h"
 #include <fstream>
 #include <unistd.h>
@@ -33,6 +39,71 @@ int split(string str, char sep, string arr[], int arrSize){
     arr[arrCurrent] = current;
     return count;
 }
+
+/*
+    void runShop(Menu) - This function runs the shop to buy, sell, and upgrade fighters
+    Create a safety string in cas anything goes wrong, data is not corrupted
+        open Players.txt
+        while getlling line
+            add line to the safety string line
+            add "\n"
+    Print Shop options
+    ask for user input
+    if user input is "1":
+        Ask for username
+        open Players.txt
+        getline
+        split into arr
+        test existance of username
+        if user exists ask for password
+        test password
+        create Player object from data in arr from PLayers.txt
+        output balance
+        print shop fighters options
+        ask for user input on which fighter they wish to buy
+        get comfirmation
+        check that balace is enough
+        add fighter to player fighter arr
+        create output file string:
+            loop through Player.txt lines
+            if line is player line
+                add data of new fighter to that line
+            output full new line into Players.txt
+    if user input is "2":
+        Ask for username
+        open Players.txt
+        getline
+        split into arr
+        test existance of username
+        if user exists ask for password
+        test password
+        create Player object from data in arr from PLayers.txt
+        print fighters that player currently has
+        ask which fighter they wish to sell
+        checks range of input
+        removes selected fighter from player fighter array
+        creates new string for Players.txt with fighter removed
+        add price of fighter back to balance
+        ouputs new string for Players.txt
+    if user input is "3":
+        Ask for username
+        open Players.txt
+        getline
+        split into arr
+        test existance of username
+        if user exists ask for password
+        test password
+        create Player object from data in arr from PLayers.txt
+        print fighters that player currently has
+        ask which fighter they wish to upgrade
+        remove blalance from account
+        upgrad eplayer
+        create new file string with level, hp, power, and fighter price increaced
+        output new string to Players.txt
+        close files
+    if user input is "4":
+        return to main function
+*/
 
 void runShop(Menu menu){
     ifstream safety;
@@ -400,6 +471,15 @@ void runShop(Menu menu){
     file.close();
 }
 
+/*
+    void createAccount()
+        Opens Players.txt
+        prints menu options
+        asks for new username and password
+        checks existnce of new username
+        if username is avalable, creates user and adds it to a new line in PLayers.txt
+*/
+
 void createAccount(Menu menu){
     system("clear");
     ifstream file;
@@ -447,6 +527,15 @@ void createAccount(Menu menu){
         createAccount(menu);
     }
 }
+
+/*
+    Next functions all work the same
+    Prints images from folder
+    opens file
+    gets lines
+    prints lines
+    closes file
+*/
 
 void printPlayer1PunchPlayer2Block0(){
     ifstream fighter0;
@@ -498,25 +587,6 @@ void printPlayer1PunchPlayer2Block3(){
         cout << str << endl;
     }
     fighter3.close();
-}
-
-void player1PunchPlayer2Block(){
-    system("clear");
-    printPlayer1PunchPlayer2Block0();
-    usleep(1000000);
-    system("clear");
-    printPlayer1PunchPlayer2Block1();
-    usleep(150000);
-    system("clear");
-    printPlayer1PunchPlayer2Block2();
-    usleep(150000);
-    system("clear");
-    printPlayer1PunchPlayer2Block3();
-    usleep(150000);
-    system("clear");
-    printPlayer1PunchPlayer2Block0();
-    usleep(1000000);
-    system("clear");
 }
 
 void printPlayer1BlockPlayer2Punch0(){
@@ -571,25 +641,6 @@ void printPlayer1BlockPlayer2Punch3(){
     fighter3.close();
 }
 
-void player1BlockPlayer2Punch(){
-    system("clear");
-    printPlayer1BlockPlayer2Punch0();
-    usleep(1000000);
-    system("clear");
-    printPlayer1BlockPlayer2Punch1();
-    usleep(150000);
-    system("clear");
-    printPlayer1BlockPlayer2Punch2();
-    usleep(150000);
-    system("clear");
-    printPlayer1BlockPlayer2Punch3();
-    usleep(150000);
-    system("clear");
-    printPlayer1BlockPlayer2Punch0();
-    usleep(1000000);
-    system("clear");
-}
-
 void printPlayer1BlockPlayer2Block0(){
     ifstream fighter3;
     fighter3.open("Images/player1BlockPlayer2Block/player1BlockPlayer2Block0.txt");
@@ -616,6 +667,65 @@ void printPlayer1BlockPlayer2Block1(){
     fighter3.close();
 }
 
+/*
+    Driver function to print sequence of images
+    adds delays between images
+    controls both what images are shown
+    controls timing of images shown
+*/
+
+void player1PunchPlayer2Block(){
+    system("clear");
+    printPlayer1PunchPlayer2Block0();
+    usleep(1000000);
+    system("clear");
+    printPlayer1PunchPlayer2Block1();
+    usleep(150000);
+    system("clear");
+    printPlayer1PunchPlayer2Block2();
+    usleep(150000);
+    system("clear");
+    printPlayer1PunchPlayer2Block3();
+    usleep(150000);
+    system("clear");
+    printPlayer1PunchPlayer2Block0();
+    usleep(1000000);
+    system("clear");
+}
+
+/*
+    Driver function to print sequence of images
+    adds delays between images
+    controls both what images are shown
+    controls timing of images shown
+*/
+
+void player1BlockPlayer2Punch(){
+    system("clear");
+    printPlayer1BlockPlayer2Punch0();
+    usleep(1000000);
+    system("clear");
+    printPlayer1BlockPlayer2Punch1();
+    usleep(150000);
+    system("clear");
+    printPlayer1BlockPlayer2Punch2();
+    usleep(150000);
+    system("clear");
+    printPlayer1BlockPlayer2Punch3();
+    usleep(150000);
+    system("clear");
+    printPlayer1BlockPlayer2Punch0();
+    usleep(1000000);
+    system("clear");
+}
+
+/*
+    Driver function to print sequence of images
+    adds delays between images
+    controls both what images are shown
+    controls timing of images shown
+*/
+
 void player1BlockPlayer2Block(){
     system("clear");
     printPlayer1BlockPlayer2Block0();
@@ -628,6 +738,13 @@ void player1BlockPlayer2Block(){
     usleep(150000);
     system("clear"); 
 }
+
+/*
+    Driver function to print sequence of images
+    adds delays between images
+    controls both what images are shown
+    controls timing of images shown
+*/
 
 void player1PunchPlayer2Punch(){
     system("clear");
@@ -663,11 +780,18 @@ void player1PunchPlayer2Punch(){
     system("clear");
 }
 
+/*
+    Asks user for choice
+    checks range of choice
+    returns choice
+    if not in range, print invalid
+*/
+
 int getChoice(){
     int choice;
     cout << "Enter 1 to punch" << endl;
     cout << "Enter 2 to block" << endl;
-    cout << "Enter -1 to quit" << endl;
+    //cout << "Enter -1 to quit" << endl;
     cin >> choice;
     if((choice >= 1) && (choice <= 2)){
         return choice;
@@ -680,6 +804,39 @@ int getChoice(){
     }
     return -1;
 }
+
+/*
+    int/void playEncounter(Fighter, Fighter, Player, Player)
+        Display fighter stats with powerups
+        Display images of players
+        Ask players what they would like to do
+        get input from users
+        test which situation has occured
+        run fuction to play the image sequence that corrilates with the situations
+        Test to see if either player has run out of HP
+        if one of them has:
+            (same process in each situation)
+            display winner 
+            diplay win persentages of both players
+            open Players.txt
+            test each line and see if the line is the data from one of the two players
+            if its the line for the winning player
+                split string into an array
+                increment money index in array
+                incrament fights won in fighter set index
+                incrament total fights in fighter set index
+                loop through all indexes and create a string adding commas between each index
+                add this string to the new total output line
+            if the line is for the losing player
+                split string into an array
+                incrament total fights in fighter set index
+                loop through all indexes and create a string adding commas between each index
+                add this string to the new total output line
+            else
+                add string to new total output string
+        add the total output string to the file to edit the data saved for each player
+        close files
+*/
 
 int playEncounter(Fighter fighter1, Fighter fighter2, Player player1, Player player2){
     system("clear");
@@ -707,60 +864,66 @@ int playEncounter(Fighter fighter1, Fighter fighter2, Player player1, Player pla
                 fighter1.incrementFightsWon();
                 fighter1.incrementTotalFights();
                 fighter2.incrementTotalFights();
+                cout << "$5,000 has been added to " << player1.getPlayerName() << "'s account" << endl;
+                cout << endl;
+                double oneWinPercentage = double(fighter1.getFightsWon()) / fighter1.getTotalFights();
+                cout << player1.getPlayerName() << "'s win percentage = " << oneWinPercentage << endl;
+                double twoWinPercentage = double(fighter2.getFightsWon()) / fighter2.getTotalFights();
+                cout << player2.getPlayerName() << "'s win percentage = " << twoWinPercentage << endl;
                 ifstream file;
-                    file.open("Players.txt");
-                    string str;
-                    string arr[74];
-                    string outString;
-                    while(getline(file, str)){
-                        split(str, ',', arr, 74);
-                        if(arr[0] == player1.getPlayerName()){
-                            arr[2] = to_string(stoi(arr[2]) + 5000);
-                            for(int i = 4; i < 70; i += 7){
-                                if(arr[i] == fighter1.getFighterName()){
-                                    arr[i + 4] = to_string(stoi(arr[i + 4]) + 1);
-                                    arr[i + 5] = to_string(stoi(arr[i + 5]) + 1);
-                                }
+                file.open("Players.txt");
+                string str;
+                string arr[74];
+                string outString;
+                while(getline(file, str)){
+                    split(str, ',', arr, 74);
+                    if(arr[0] == player1.getPlayerName()){
+                        arr[2] = to_string(stoi(arr[2]) + 5000);
+                        for(int i = 4; i < 70; i += 7){
+                            if(arr[i] == fighter1.getFighterName()){
+                                arr[i + 4] = to_string(stoi(arr[i + 4]) + 1);
+                                arr[i + 5] = to_string(stoi(arr[i + 5]) + 1);
                             }
-                            for(int i = 0; i < 74; i++){
-                                if(i == 73){
-                                    outString += arr[i];
-                                } else {
-                                    outString += arr[i];
-                                    outString += ",";
-                                }
-                            }
-                            outString += "\n";
-                        } else if(arr[0] == player2.getPlayerName()){
-                            for(int i = 4; i < 70; i += 7){
-                                if(arr[i] == fighter2.getFighterName()){
-                                    arr[i + 5] = to_string(stoi(arr[i + 5]) + 1);
-                                }
-                            }
-                            for(int i = 0; i < 74; i++){
-                                if(i == 73){
-                                    outString += arr[i];
-                                } else {
-                                    outString += arr[i];
-                                    outString += ",";
-                                }
-                            }
-                            outString += "\n";
-                        } else {
-                            for(int i = 0; i < 74; i++){
-                                if(i == 73){
-                                    outString += arr[i];
-                                } else {
-                                    outString += arr[i];
-                                    outString += ",";
-                                }
-                            }
-                            outString += "\n";
                         }
+                        for(int i = 0; i < 74; i++){
+                            if(i == 73){
+                                outString += arr[i];
+                            } else {
+                                outString += arr[i];
+                                outString += ",";
+                            }
+                        }
+                        outString += "\n";
+                    } else if(arr[0] == player2.getPlayerName()){
+                        for(int i = 4; i < 70; i += 7){
+                            if(arr[i] == fighter2.getFighterName()){
+                                arr[i + 5] = to_string(stoi(arr[i + 5]) + 1);
+                            }
+                        }
+                        for(int i = 0; i < 74; i++){
+                            if(i == 73){
+                                outString += arr[i];
+                            } else {
+                                outString += arr[i];
+                                outString += ",";
+                            }
+                        }
+                        outString += "\n";
+                    } else {
+                        for(int i = 0; i < 74; i++){
+                            if(i == 73){
+                                outString += arr[i];
+                            } else {
+                                outString += arr[i];
+                                outString += ",";
+                            }
+                        }
+                        outString += "\n";
                     }
-                    ofstream outFile;
-                    outFile.open("Players.txt");
-                    outFile << outString;
+                }
+                ofstream outFile;
+                outFile.open("Players.txt");
+                outFile << outString;
             }
         } else if((player2Choice == 1) && (player1Choice == 2)){
             player1BlockPlayer2Punch();
@@ -772,60 +935,66 @@ int playEncounter(Fighter fighter1, Fighter fighter2, Player player1, Player pla
                 fighter2.incrementFightsWon();
                 fighter2.incrementTotalFights();
                 fighter1.incrementTotalFights();
+                cout << "$5,000 has been added to " << player1.getPlayerName() << "'s account" << endl;
+                cout << endl;
+                double oneWinPercentage = double(fighter1.getFightsWon()) / fighter1.getTotalFights();
+                cout << player1.getPlayerName() << "'s win percentage = " << oneWinPercentage << endl;
+                double twoWinPercentage = double(fighter2.getFightsWon()) / fighter2.getTotalFights();
+                cout << player2.getPlayerName() << "'s win percentage = " << twoWinPercentage << endl;
                 ifstream file;
-                    file.open("Players.txt");
-                    string str;
-                    string arr[74];
-                    string outString;
-                    while(getline(file, str)){
-                        split(str, ',', arr, 74);
-                        if(arr[0] == player2.getPlayerName()){
-                            arr[2] = to_string(stoi(arr[2]) + 5000);
-                            for(int i = 4; i < 70; i += 7){
-                                if(arr[i] == fighter2.getFighterName()){
-                                    arr[i + 4] = to_string(stoi(arr[i + 4]) + 1);
-                                    arr[i + 5] = to_string(stoi(arr[i + 5]) + 1);
-                                }
+                file.open("Players.txt");
+                string str;
+                string arr[74];
+                string outString;
+                while(getline(file, str)){
+                    split(str, ',', arr, 74);
+                    if(arr[0] == player2.getPlayerName()){
+                        arr[2] = to_string(stoi(arr[2]) + 5000);
+                        for(int i = 4; i < 70; i += 7){
+                            if(arr[i] == fighter2.getFighterName()){
+                                arr[i + 4] = to_string(stoi(arr[i + 4]) + 1);
+                                arr[i + 5] = to_string(stoi(arr[i + 5]) + 1);
                             }
-                            for(int i = 0; i < 74; i++){
-                                if(i == 73){
-                                    outString += arr[i];
-                                } else {
-                                    outString += arr[i];
-                                    outString += ",";
-                                }
-                            }
-                            outString += "\n";
-                        } else if(arr[0] == player1.getPlayerName()){
-                            for(int i = 4; i < 70; i += 7){
-                                if(arr[i] == fighter1.getFighterName()){
-                                    arr[i + 5] = to_string(stoi(arr[i + 5]) + 1);
-                                }
-                            }
-                            for(int i = 0; i < 74; i++){
-                                if(i == 73){
-                                    outString += arr[i];
-                                } else {
-                                    outString += arr[i];
-                                    outString += ",";
-                                }
-                            }
-                            outString += "\n";
-                        } else {
-                            for(int i = 0; i < 74; i++){
-                                if(i == 73){
-                                    outString += arr[i];
-                                } else {
-                                    outString += arr[i];
-                                    outString += ",";
-                                }
-                            }
-                            outString += "\n";
                         }
+                        for(int i = 0; i < 74; i++){
+                            if(i == 73){
+                                outString += arr[i];
+                            } else {
+                                outString += arr[i];
+                                outString += ",";
+                            }
+                        }
+                        outString += "\n";
+                    } else if(arr[0] == player1.getPlayerName()){
+                        for(int i = 4; i < 70; i += 7){
+                            if(arr[i] == fighter1.getFighterName()){
+                                arr[i + 5] = to_string(stoi(arr[i + 5]) + 1);
+                            }
+                        }
+                        for(int i = 0; i < 74; i++){
+                            if(i == 73){
+                                outString += arr[i];
+                            } else {
+                                outString += arr[i];
+                                outString += ",";
+                            }
+                        }
+                        outString += "\n";
+                    } else {
+                        for(int i = 0; i < 74; i++){
+                            if(i == 73){
+                                outString += arr[i];
+                            } else {
+                                outString += arr[i];
+                                outString += ",";
+                            }
+                        }
+                        outString += "\n";
                     }
-                    ofstream outFile;
-                    outFile.open("Players.txt");
-                    outFile << outString;
+                }
+                ofstream outFile;
+                outFile.open("Players.txt");
+                outFile << outString;
             }
         } else if((player1Choice == 2) && (player2Choice == 2)){
             player1BlockPlayer2Block();
@@ -842,6 +1011,12 @@ int playEncounter(Fighter fighter1, Fighter fighter2, Player player1, Player pla
                     fighter1.incrementFightsWon();
                     fighter1.incrementTotalFights();
                     fighter2.incrementTotalFights();
+                    cout << "$5,000 has been added to " << player1.getPlayerName() << "'s account" << endl;
+                    cout << endl;
+                    double oneWinPercentage = double(fighter1.getFightsWon()) / fighter1.getTotalFights();
+                    cout << player1.getPlayerName() << "'s win percentage = " << oneWinPercentage << endl;
+                    double twoWinPercentage = double(fighter2.getFightsWon()) / fighter2.getTotalFights();
+                    cout << player2.getPlayerName() << "'s win percentage = " << twoWinPercentage << endl;
                     ifstream file;
                     file.open("Players.txt");
                     string str;
@@ -902,65 +1077,100 @@ int playEncounter(Fighter fighter1, Fighter fighter2, Player player1, Player pla
                 fighter2.incrementFightsWon();
                 fighter2.incrementTotalFights();
                 fighter1.incrementTotalFights();
+                cout << "$5,000 has been added to " << player2.getPlayerName() << "'s account" << endl;
+                cout << endl;
+                double oneWinPercentage = double(fighter1.getFightsWon()) / fighter1.getTotalFights();
+                cout << player1.getPlayerName() << "'s win percentage = " << oneWinPercentage << endl;
+                double twoWinPercentage = double(fighter2.getFightsWon()) / fighter2.getTotalFights();
+                cout << player2.getPlayerName() << "'s win percentage = " << twoWinPercentage << endl;
                 ifstream file;
-                    file.open("Players.txt");
-                    string str;
-                    string arr[74];
-                    string outString;
-                    while(getline(file, str)){
-                        split(str, ',', arr, 74);
-                        if(arr[0] == player2.getPlayerName()){
-                            arr[2] = to_string(stoi(arr[2]) + 5000);
-                            for(int i = 4; i < 70; i += 7){
-                                if(arr[i] == fighter2.getFighterName()){
-                                    arr[i + 4] = to_string(stoi(arr[i + 4]) + 1);
-                                    arr[i + 5] = to_string(stoi(arr[i + 5]) + 1);
-                                }
+                file.open("Players.txt");
+                string str;
+                string arr[74];
+                string outString;
+                while(getline(file, str)){
+                    split(str, ',', arr, 74);
+                    if(arr[0] == player2.getPlayerName()){
+                        arr[2] = to_string(stoi(arr[2]) + 5000);
+                        for(int i = 4; i < 70; i += 7){
+                            if(arr[i] == fighter2.getFighterName()){
+                                arr[i + 4] = to_string(stoi(arr[i + 4]) + 1);
+                                arr[i + 5] = to_string(stoi(arr[i + 5]) + 1);
                             }
-                            for(int i = 0; i < 74; i++){
-                                if(i == 73){
-                                    outString += arr[i];
-                                } else {
-                                    outString += arr[i];
-                                    outString += ",";
-                                }
-                            }
-                            outString += "\n";
-                        } else if(arr[0] == player1.getPlayerName()){
-                            for(int i = 4; i < 70; i += 7){
-                                if(arr[i] == fighter1.getFighterName()){
-                                    arr[i + 5] = to_string(stoi(arr[i + 5]) + 1);
-                                }
-                            }
-                            for(int i = 0; i < 74; i++){
-                                if(i == 73){
-                                    outString += arr[i];
-                                } else {
-                                    outString += arr[i];
-                                    outString += ",";
-                                }
-                            }
-                            outString += "\n";
-                        } else {
-                            for(int i = 0; i < 74; i++){
-                                if(i == 73){
-                                    outString += arr[i];
-                                } else {
-                                    outString += arr[i];
-                                    outString += ",";
-                                }
-                            }
-                            outString += "\n";
                         }
+                        for(int i = 0; i < 74; i++){
+                            if(i == 73){
+                                outString += arr[i];
+                            } else {
+                                outString += arr[i];
+                                outString += ",";
+                            }
+                        }
+                        outString += "\n";
+                    } else if(arr[0] == player1.getPlayerName()){
+                        for(int i = 4; i < 70; i += 7){
+                            if(arr[i] == fighter1.getFighterName()){
+                                arr[i + 5] = to_string(stoi(arr[i + 5]) + 1);
+                            }
+                        }
+                        for(int i = 0; i < 74; i++){
+                            if(i == 73){
+                                outString += arr[i];
+                            } else {
+                                outString += arr[i];
+                                outString += ",";
+                            }
+                        }
+                        outString += "\n";
+                    } else {
+                        for(int i = 0; i < 74; i++){
+                            if(i == 73){
+                                outString += arr[i];
+                            } else {
+                                outString += arr[i];
+                                outString += ",";
+                            }
+                        }
+                        outString += "\n";
                     }
-                    ofstream outFile;
-                    outFile.open("Players.txt");
-                    outFile << outString;
+                }
+                ofstream outFile;
+                outFile.open("Players.txt");
+                outFile << outString;
             }
         }
     }
     return 0;
 }
+
+/*
+    void playGame()
+        Ask players to enter username and password
+        open Players.txt
+        split each line into arrays
+        test to see if username matches the line in the text file
+        if it does, test to make sure password is correct
+        if log in is successful, create PLayer objects from data in text file
+        Ask players which fighter they would like to use
+        get fighter from array of fighters in Player object
+        create Ring object
+        while the two players have not collided
+            display ring
+            Get random moves for player 1
+            display moves
+            get move from player
+            move player
+            test for collisions
+            randomly spawn powerup
+            Get random moves for player 2
+            display moves
+            get move from player
+            move player
+            test for collisions
+            randomply spawn powerup
+        once players collide
+            call the playEncounter() function
+*/
 
 void playGame(){
     system("clear");
@@ -974,6 +1184,8 @@ void playGame(){
     string playerArr[74];
     Player player1;
     Player player2;
+    bool player1Exists = false;
+    bool player2Exists = false;
     while(getline(file, str)){
         split(str, ',', playerArr, 74);
         if(playerArr[0] == player1Username){
@@ -981,6 +1193,7 @@ void playGame(){
             cout << "Enter password" << endl;
             cin >> player1Password;
             if(playerArr[1] == player1Password){
+                player1Exists = true;
                 Player playerOne(playerArr[0], playerArr[1], stoi(playerArr[2]), stoi(playerArr[3]));
                 player1 = playerOne;
                 int counter = 0;
@@ -992,6 +1205,11 @@ void playGame(){
                 }
             }
         }
+    }
+    if(!player1Exists){
+        cout << "Loggin failed" << endl;
+        usleep(5000000);
+        playGame();
     }
     file.close();
     system("clear");
@@ -1006,6 +1224,7 @@ void playGame(){
             cout << "Enter password" << endl;
             cin >> player2Password;
             if(playerArr[1] == player2Password){
+                player2Exists = true;
                 Player playerTwo(playerArr[0], playerArr[1], stoi(playerArr[2]), stoi(playerArr[3]));
                 player2 = playerTwo;
                 int counter = 0;
@@ -1017,6 +1236,11 @@ void playGame(){
                 }
             }
         }
+    }
+    if(!player2Exists){
+        cout << "Loggin failed" << endl;
+        usleep(5000000);
+        playGame();
     }
     system("clear");
     cout << player1.getPlayerName() <<", which player would you like to use?" << endl;
@@ -1044,7 +1268,7 @@ void playGame(){
     char move;
     bool playerCollide = false;
     while(!playerCollide){
-        int player1MoveNum = rand() % 10;
+        int player1MoveNum = (rand() % 10) + 1;
         for(int i = 0; i < player1MoveNum; i++){
             if((rand() % 10) == 0){
                 int x = rand() % 15;
@@ -1075,7 +1299,7 @@ void playGame(){
                 }
             }
         }
-        int player2MoveNum = rand() % 10;
+        int player2MoveNum = (rand() % 10) + 1;
         for(int i = 0; i < player2MoveNum; i++){
             if((rand() % 10) == 0){
                 int x = rand() % 15;
@@ -1112,6 +1336,14 @@ void playGame(){
     playEncounter(fighter1, fighter2, player1, player2);
     usleep(10000000);
 }
+
+/*
+    Main Funtion:
+        Distplay main menu
+        While playing game, ask for option from the user
+        test option and call function corrilating with the option
+        if no longer playing, quit game
+*/
 
 int main(){
     Menu menu1 = Menu();

@@ -4,9 +4,7 @@
 #include <fstream>
 using namespace std;
 
-Menu::Menu(){
-
-}
+Menu::Menu(){}
 string Menu::getMenuOptionAt(int index){
     return options[index];
     return 0;
@@ -24,6 +22,11 @@ int Menu::setGameName(string newGameName){
     return 0;
 }
 
+/*
+    prints options from text file
+    returns users choice from those options
+*/
+
 int Menu::getChoice(){
     int choice;
     ifstream file;
@@ -36,6 +39,10 @@ int Menu::getChoice(){
     return choice;
 }
 
+/*
+    prints text file with menu
+*/
+
 void Menu::printMenu(){
     system("clear");
     ifstream file;
@@ -47,6 +54,10 @@ void Menu::printMenu(){
     file.close();
 }
 
+/*
+    prints text file with asking name line
+*/
+
 void Menu::askName(){
     ifstream file;
     file.open("Images/enterName.txt");
@@ -56,6 +67,10 @@ void Menu::askName(){
     }
     file.close();
 }
+
+/*
+    prints text file with asking password line
+*/
 
 void Menu::askPassword(){
     ifstream file;
@@ -67,6 +82,10 @@ void Menu::askPassword(){
     file.close();
 }
 
+/*
+    prints text file with user does not exist line
+*/
+
 void Menu::userExists(){
     ifstream file;
     file.open("Images/userExists.txt");
@@ -76,6 +95,10 @@ void Menu::userExists(){
     }
     file.close();
 }
+
+/*
+    prints text file with welcome info
+*/
 
 void Menu::welcome(){
     ifstream file;
@@ -87,6 +110,10 @@ void Menu::welcome(){
     file.close();
 }
 
+/*
+    prints text file with Shop options
+*/
+
 void Menu::printFighterShop(){
     ifstream file;
     file.open("FighterShop.txt");
@@ -96,6 +123,10 @@ void Menu::printFighterShop(){
     }
     file.close();
 }
+
+/*
+    prints text file with Shop title
+*/
 
 void Menu::printShopTitle(){
     ifstream file;

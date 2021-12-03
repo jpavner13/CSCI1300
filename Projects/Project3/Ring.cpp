@@ -3,6 +3,13 @@
 
 using namespace std;
 
+/*
+    This is my edit of the Map class
+    Map class was too specifit to the assigned game and needed quite a bit of modificaton for my own game
+    Most functions have the same functionality apart from name changes and Character changes
+    This class is more applicable to my game
+*/
+
 Ring::Ring(){
     for(int i = 0; i < 15; i++){
         for(int j = 0; j < 15; j++){

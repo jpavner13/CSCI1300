@@ -28,7 +28,6 @@ class Player{
         int setNumberOfFighters(int);
         int decrementNumberOfFighters();
 
-
     private:
         string playerName;
         string playerPassword;
